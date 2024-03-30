@@ -1,6 +1,7 @@
 import './App.css';
 import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import MainForm from './Components/MainForm';
+import ChatRoom from './Components/ChatRoom';
 
 function App() {
   return (
@@ -8,7 +9,7 @@ function App() {
       <Router>
         <Routes>
           <Route index element={<MainForm/>}></Route>
-          <Route path='/chat/:roomName' element={<h1>Chat Room</h1>}></Route>
+          <Route path='/chat/:roomName' element={<ChatRoom/>}></Route>
           <Route path="*" element={<h1>404 not found</h1>}></Route>
         </Routes>
       </Router>
