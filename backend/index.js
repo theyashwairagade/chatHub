@@ -6,11 +6,17 @@ const cors=require("cors");
 const app=express();
 app.use(cors);
 
+const port=8000;
+
 // From documentation of socket.io
 const server=http.createServer(app);
-const io=new Server();
+const io=new Server(server,{
+    cors: {
+        origin: "http://localhost:3000",
+        methods: ["GET","POST"]
+    }
+});
 
-const port=8000;
 
 app.get('/',(req,res)=>{
     res.send("Chat started");
