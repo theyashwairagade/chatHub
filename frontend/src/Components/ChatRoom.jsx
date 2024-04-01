@@ -3,6 +3,7 @@ import { useLocation } from "react-router-dom";
 import Moment from 'react-moment';
 import { io } from "socket.io-client";
 
+
 const ChatRoom = () => {
     const location = useLocation();
     const msgBoxRef = useRef();
@@ -10,7 +11,8 @@ const ChatRoom = () => {
     const [message, setMessage] = useState("");
     const [allMessages, setAllMessages] = useState([]);
     const [socket,setSocket]=useState()
-    const backend = "http://localhost:8000/";
+
+    const backend = process.env.REACT_APP_BACKEND_URL||'http://localhost:8000/';
 
     useEffect(() => {
         if (location.state) {
@@ -20,7 +22,8 @@ const ChatRoom = () => {
 
     useEffect(() => {
         if (data.room) {
-            const socket = io(backend);
+            const socket = io('http://localhost:8000/');
+            console.log(backend," is ",typeof backend);
             setSocket(socket);
             socket.on("connect", () => {
                 socket.emit("joinRoom", data.room);
