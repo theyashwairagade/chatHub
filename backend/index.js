@@ -16,10 +16,22 @@ const io=new Server(server,{
         methods: ["GET","POST"]
     }
 });
+io.on("connection", (socket) => {
+    console.log(socket.id); // x8WIv7-mJelg7on_ALbx
+    socket.on("joinRoom",(room)=>{
+        // console.log(room);
+        socket.join(room);
+    });
+    socket.on("newMessage",({newMessage,room})=>{
+        console.log(room,newMessage);
+        // socket.emit("UnreadMessage",newMessage)
+        io.in(room).emit("UnreadMessage",newMessage);
+    })
+});
 
 
 app.get('/',(req,res)=>{
     res.send("Chat started");
 })
 
-app.listen(port,()=> console.log(`App started at http://localhost:${port}`));
+server.listen(port,()=> console.log(`App started at http://localhost:${port}`));
